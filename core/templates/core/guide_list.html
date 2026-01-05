@@ -1,0 +1,57 @@
+{% extends "_master.html" %}
+{% load static %}
+
+{% block title %}راهنمای تجارت{% endblock title %}
+
+{% block contents %}
+
+<!-- Start Page Banner -->
+<div class="page-title-area">
+    <div class="container">
+        <div class="page-title-content">
+            <h2>راهنمای تجارت</h2>
+            <ul>
+                <li><a href="{% url 'core:home' %}">خانه</a></li>
+                <li>راهنمای تجارت</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Page Banner -->
+
+<!-- Start Country List Area -->
+<section class="services-area ptb-50">
+    <div class="container">
+<div class="row justify-content-center">
+
+    {% for country in countries %}
+        <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+            <div class="single-services-box text-center h-100">
+
+                <h3>{{ country.name }}</h3>
+
+                <p>
+                    راهنمای تجاری، لینک‌ها و گزارش‌های مربوط به
+                    {{ country.name }}
+                </p>
+
+                <a href="{% url 'core:guide_country_detail' country.slug %}"
+                   class="default-btn">
+                    مشاهده راهنما
+                </a>
+
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12 text-center">
+            <p>هیچ کشوری ثبت نشده است.</p>
+        </div>
+    {% endfor %}
+
+</div>
+
+    </div>
+</section>
+<!-- End Country List Area -->
+
+{% endblock contents %}

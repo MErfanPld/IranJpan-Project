@@ -1,0 +1,92 @@
+{% extends "_master.html" %}
+{% load static %}
+{% block title %}ثبت‌نام کاربران{% endblock %}
+
+{% block contents %}
+
+<!-- Start Page Banner -->
+<div class="page-title-area">
+    <div class="container">
+        <div class="page-title-content">
+            <h2>ثبت‌نام کاربران</h2>
+            <ul>
+                <li><a href="{% url 'core:home' %}">خانه</a></li>
+                <li>ثبت‌نام کاربران</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Page Banner -->
+
+<!-- Start Register Area -->
+<section class="login-area ptb-50">
+    <div class="container">
+        <div class="login-form">
+            <h2>ثبت‌نام کاربران</h2>
+
+            <form method="post">
+                {% csrf_token %}
+
+                {% if messages %}
+                    {% for item in messages %}
+                        <p class="text-center text-success">{{ item }}</p>
+                    {% endfor %}
+                {% endif %}
+
+                {% if form.non_field_errors %}
+                    {% for item in form.non_field_errors %}
+                        <p class="text-center text-danger">{{ item }}</p>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="id_first_name">نام</label>
+                    {{ form.first_name }}
+                    {{ form.first_name.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_last_name">نام خانوادگی</label>
+                    {{ form.last_name }}
+                    {{ form.last_name.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_phone_number">شماره موبایل</label>
+                    {{ form.phone_number }}
+                    {{ form.phone_number.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_email">ایمیل (اختیاری)</label>
+                    {{ form.email }}
+                    {{ form.email.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_password1">گذرواژه</label>
+                    {{ form.password1 }}
+                    {{ form.password1.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_password2">تکرار گذرواژه</label>
+                    {{ form.password2 }}
+                    {{ form.password2.errors }}
+                </div>
+
+                <div class="form-group mb-3">
+                    <button type="submit" class="btn btn-primary w-100">ثبت‌نام</button>
+                </div>
+
+                <div class="form-group text-center">
+                    قبلاً ثبت‌نام کرده‌اید؟ <a href="{% url 'accounts:login' %}">ورود</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>
+<!-- End Register Area -->
+
+{% endblock contents %}

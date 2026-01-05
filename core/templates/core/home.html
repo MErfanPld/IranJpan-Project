@@ -1,0 +1,170 @@
+{% extends "_master.html" %}
+{% load static %}
+
+{% block contents %}
+        <!-- Start Main News Slider Area -->
+        <section class="main-news-slider-area">
+            <div class="container-fluid">
+                <div class="main-news-slides owl-carousel owl-theme">
+            {% for slide in sliders %}
+                    <div class="news-slider-item">
+                        <a href="#">
+                            <img src="{{ slide.image.url }}" alt="{{ slide.title }}">
+                        </a>
+
+                        <div class="slider-content">
+                            <h3>
+                                <a href="#">{{ slide.title }}</a>
+                            </h3>
+                            <span><a href=""></a> / {{slide.jcreated_at}}</span>
+                        </div>
+                    </div>
+            {% empty %}
+                <p>هیچ اسلاید فعالی وجود ندارد.</p>
+            {% endfor %}
+                </div>
+            </div>
+        </section>
+        <!-- End Main News Slider Area -->
+
+        <!-- Start Default News Area -->
+        <section class="default-news-area">
+            <div class="container">
+                <div class="most-popular-news">
+                    <div class="section-title"> 
+                        <h2>جدیدترین مقالات</h2> 
+                    </div>
+
+                    <div class="row">
+                        {% for article in latest_articles %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-most-popular-news">
+                                <div class="popular-news-image">
+                                    <a href="{{ article.get_absolute_url }}">
+                                        {% if article.image %}
+                                            <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                                        {% else %}
+                                            <img src="{% static 'img/most-popular/default.jpg' %}" alt="{{ article.title }}">
+                                        {% endif %}
+                                    </a>
+                                </div>
+                                
+                                <div class="popular-news-content">
+                                    <span>{{ article.category.title }}</span>
+                                    <h3>
+                                        <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+                                    </h3>
+                                    <p><a href="#">{{ article.author.get_full_name }}</a> / {{ article.jcreated_at }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="culture-news">
+                    <div class="section-title"> 
+                        <h2>درباره اتاق بازرگانی</h2> 
+                    </div>
+
+                    <div class="row">
+                        <section class="about-area ptb-50">
+                                    <div class="container">
+                                        <div class="about-image">
+                                            <img src="{{site_settings.about_img.url}}" alt="image">
+                                        </div>
+
+                                                                            <div class="about-content">
+                                                                                <h3>معرفی اتاق ایران و ژاپن :
+                                                                </h3>
+                                    <p>{{ site_settings.about_text|default:"متن درباره سایت وجود ندارد."|linebreaks|safe }}</p>
+                                                                                                                                            </div>
+                                                                                                    </div>
+
+
+                                    <a href='' class="btn w-40 text-light" style='background:#df1c22;'> دانلود اساسنامه اتاق ژاپن</a>
+                        </section>
+                    </div>
+                </div>
+
+
+<!-- Start Team Area -->
+<section class="team-area">
+    <div class="container">
+                    <div class="section-title"> 
+                        <h2>هیات مدیره اتاق ژاپن</h2> 
+                    </div>
+        <div class="row">
+            {% for j_member in j_members %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-team-box">
+                            <div class="image">
+                                <img src="{{j_member.image.url}}" alt="image">
+
+                        <ul class="social mt-2">
+                            {% if j_member.facebook %}
+                            <li><a href="{{ j_member.facebook }}" target="_blank"><i class='bx bxl-facebook'></i></a></li>
+                            {% endif %}
+                            {% if j_member.twitter %}
+                            <li><a href="{{ j_member.twitter }}" target="_blank"><i class='bx bxl-twitter'></i></a></li>
+                            {% endif %}
+                            {% if j_member.linkedin %}
+                            <li><a href="{{ j_member.linkedin }}" target="_blank"><i class='bx bxl-linkedin'></i></a></li>
+                            {% endif %}
+                            {% if j_member.instagram %}
+                            <li><a href="{{ j_member.instagram }}" target="_blank"><i class='bx bxl-instagram'></i></a></li>
+                            {% endif %}
+                        </ul>
+                            </div>
+
+                            <div class="content">
+                                <h3>{{j_member.name}}</h3>
+                                <span>{{j_member.role}}</span>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+
+
+            
+        </div>
+    </div>
+</section>
+<!-- End Team Area -->
+<div class="col-lg-12">
+    <div class="video-news">
+        <div class="section-title"> 
+            <h2>تبلیغات</h2> 
+        </div>
+
+        <div class="video-slides owl-carousel owl-theme owl-rtl">
+            {% for ad in advertisement_settings %}
+            <div class="video-item">
+                <div class="video-news-image">
+                    {% if ad.image %}
+                        <img src="{{ ad.image.url }}" alt="{{ ad.title }}">
+                    {% else %}
+                        <img src="{% static 'img/video-news/default.jpg' %}" alt="ویدئو">
+                    {% endif %}
+                </div>
+
+                <div class="video-news-content">
+                    <h3>
+                        <a href="#">{{ ad.title }}</a>
+                    </h3>
+                    <span>{{ ad.jcreated_at|date:"j F Y" }}</span>
+                </div>
+            </div>
+            {% empty %}
+            <p>هیچ تبلیغ فعالی وجود ندارد.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+            </div>
+        </section>
+        <!-- End Default News Area -->
+{% endblock contents %}

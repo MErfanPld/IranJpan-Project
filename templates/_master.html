@@ -1,0 +1,68 @@
+{% load static %}
+<!doctype html>
+<html lang="fa" dir="rtl" class="theme-light">
+    <head>		
+        {% include "./includes/_header.html" %}
+		<title>{% block title %}خبرنامه ایران - ژاپن{% endblock %}</title>
+        <link rel="icon" type="image/png" href="{% static "img/fa.ico" %}">
+    </head>
+
+    <body>
+        
+        <!-- Start Preloader -->
+        <div class="preloader">
+            <div class="loader">
+                <div class="wrapper">
+                    <div class="circle circle-1"></div>
+                    <div class="circle circle-1a"></div>
+                    <div class="circle circle-2"></div>
+                    <div class="circle circle-3"></div>
+                </div>
+                <span>در حال بارگذاری...</span>
+            </div>
+        </div>
+        <!-- End Preloader -->
+
+        <!-- Start Top Header Area -->
+         {% include "./includes/header.html" %}
+        <!-- End Navbar Area -->
+
+        <!-- Start Main -->
+         {% block contents %}{% endblock contents %}
+        <!-- End Main -->
+
+        
+        <!-- Start Footer Area -->
+         {% include "./includes/footer.html" %}
+        <!-- End Footer Area -->
+
+        <!-- Start Copy Right Area -->
+        <div class="copyright-area">
+            <div class="container">
+                <div class="copyright-area-content">
+                    <p>
+                        © کلیه حقوق این وب‌سایت متعلق به اتاق بازرگانی ایران و ژاپن می‌باشد. هرگونه استفاده، بازنشر یا کپی‌برداری از محتوای سایت بدون کسب مجوز کتبی ممنوع است.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- End Copy Right Area -->
+
+        <!-- Start Go Top Area -->
+        <div class="go-top">
+            <i class='bx bx-up-arrow-alt'></i>
+        </div>
+        <!-- End Go Top Area -->
+
+        <!-- dark version -->
+        <div class="dark-version">
+            <label id="switch" class="switch">
+                <input type="checkbox" onchange="toggleTheme()" id="slider">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <!-- dark version -->
+        
+        {% include "./includes/_footer.html" %}
+    </body>
+</html>

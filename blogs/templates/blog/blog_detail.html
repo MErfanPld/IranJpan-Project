@@ -1,0 +1,137 @@
+{% extends "_master.html" %} {% load static %} 
+{% block title %}مقالات{%endblock title %} 
+
+{% block contents %}
+
+<div class="page-title-area">
+  <div class="container">
+    <div class="page-title-content">
+      <h2> {{ article.title }} </h2>
+      <ul>
+        <li><a href="{% url "core:home" %}">خانه</a></li>
+        <li><a href="{% url "blog:blog_list" %}">مقالات</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<section class="news-details-area ptb-50">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="blog-details-desc">
+          <div class="article-image">
+            <img src="{{ article.image.url }}" alt="image" />
+          </div>
+
+          <div class="article-content">
+            <span
+              >{{article.author}} / {{article.jcreated_at}} 
+              </span
+            >
+            <h3>
+<h2>{{ article.title }}</h2>
+
+            </h3>
+
+            <p>
+                {{article.body | safe}}
+            </p>
+
+          </div>
+
+          <div class="article-footer">
+            <div class="article-share">
+              <ul class="social">
+                <li><span>اشتراک گذاری:</span></li>
+                <li>
+                  <a href="{{article.whats_up}}" target="_blank">
+                    <i class="bx bxl-whatsapp"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="{{article.instagram}}" target="_blank">
+                    <i class="bx bxl-instagram"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);" onclick="copyURL()" title="کپی لینک">
+                    <i class="bx bx-copy"></i>
+                  </a>
+                </li>
+                <script>
+                  function copyURL() {
+                      const url = window.location.href;  // آدرس صفحه فعلی
+                      navigator.clipboard.writeText(url)
+                        .then(() => {
+                            alert('لینک کپی شد!'); // پیام موفقیت
+                        })
+                        .catch(err => {
+                            console.error('خطا در کپی لینک:', err);
+                        });
+                  }
+</script>
+              </ul>
+            </div>
+          </div>
+
+
+
+
+
+          <div class="comments-area">
+
+<h3 class="comments-title">
+    نظرات کاربران ({{ article.comments.count }})
+</h3>
+
+<ol class="comment-list">
+    {% for comment in article.comments.all %}
+        <li class="comment">
+            <div class="comment-body">
+                <footer class="comment-meta">
+                    <div class="comment-author vcard">
+                        <b class="fn">{{ comment.user }}</b>
+                    </div>
+                    <div class="comment-metadata">
+                        <span>{{ comment.jcreated_at|date:"d F Y" }}</span>
+                    </div>
+                </footer>
+
+                <div class="comment-content">
+                    <p>{{ comment.text }}</p>
+                </div>
+            </div>
+        </li>
+    {% empty %}
+        <p>هنوز نظری ثبت نشده است.</p>
+    {% endfor %}
+</ol>
+
+
+<div class="comment-respond">
+    <h3 class="comment-reply-title">نظر دهید</h3>
+            <br>
+
+    {% if user.is_authenticated %}
+        <form method="post" class="comment-form">
+            {% csrf_token %}
+            {{ comment_form.text }}
+            <br>
+            <p class="form-submit">
+                <input type="submit" class="submit" value="ارسال نظر">
+            </p>
+        </form>
+    {% else %}
+        <p>برای ثبت نظر باید <a href="{% url 'login' %}">وارد شوید</a></p>
+    {% endif %}
+</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock contents %}

@@ -1,0 +1,106 @@
+<style>
+
+.single-footer-widget {
+    margin-bottom: 40px;
+}
+
+.single-footer-widget h2 {
+    margin-bottom: 25px;
+}
+
+.single-footer-widget p {
+    margin-bottom: 20px;
+}
+
+.useful-links-list li {
+    margin-bottom: 12px;
+}
+
+
+</style>
+
+<section class="footer-area pt-100 pb-70">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-6">
+        <div class="single-footer-widget">
+          <a href="#" class="text-white">
+            {% if site_settings.logo %}
+            <img src="{{ site_settings.logo.url }}" alt="اتاق ايران و ژاپن" />
+            {% else %}
+            <h3 class="text-white">{{ site_settings.site_name }}</h3>
+            {% endif %}
+          </a>
+          <hr>
+          <p>{{ site_settings.footer_text }}</p>
+
+          <ul class="social">
+            {% if site_settings.whats_app %}
+            <li>
+              <a
+                href="{{ site_settings.whats_app }}"
+                class="facebook"
+                target="_blank"
+                ><i class="bx bxl-whatsapp"></i
+              ></a>
+            </li>
+            {% endif %} {% if site_settings.twitter %}
+            <li>
+              <a
+                href="{{ site_settings.twitter }}"
+                class="twitter"
+                target="_blank"
+                ><i class="bx bxl-twitter"></i
+              ></a>
+            </li>
+            {% endif %} {% if site_settings.instagram %}
+            <li>
+              <a
+                href="{{ site_settings.instagram }}"
+                class="instagram"
+                target="_blank"
+                ><i class="bx bxl-instagram"></i
+              ></a>
+            </li>
+            {% endif %} {% if site_settings.linkedin %}
+            <li>
+              <a
+                href="{{ site_settings.linkedin }}"
+                class="linkedin"
+                target="_blank"
+                ><i class="bx bxl-linkedin"></i
+              ></a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="single-footer-widget">
+          <h2>لینک‌های مفید</h2>
+          <ul class="useful-links-list">
+            {% for link in site_settings.useful_links.all %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="single-footer-widget">
+          <h2>اشتراک گذاری</h2>
+          <div class="widget-subscribe-content">
+            <p>
+              لورم ایپسوم به سادگی متن را در بر می گیرد. لورم ایپسوم 40 سال
+              استاندارد صنعت بوده است.
+            </p>
+            <a href="" class="btn w-100 text-light" style="background: #df1c22"
+              >مشترک شدن</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
