@@ -4,6 +4,11 @@ from django.utils.html import format_html
 from .models import ContactMessage, Slider,JapanChamberDirectorsMember,MemberAboutSection
 
 
+admin.site.site_header = "پنل مدیریت اتاق بازرگاني ايران و ژاپن"
+admin.site.site_title = "داشبورد"
+admin.site.index_title = "خوش آمدید"
+
+
 @admin.register(Slider)
 class SliderAdmin(admin.ModelAdmin):
     list_display = ("title", "is_active", "image_preview")

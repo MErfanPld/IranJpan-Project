@@ -1,0 +1,17 @@
+/* تغییر رنگ هدر */
+#header {
+    background-color: #4CAF50;
+}
+
+/* تغییر فونت و رنگ تیترها */
+h1, h2, h3 {
+    font-family: 'Vazir', sans-serif;
+    color: #333399;
+}
+
+/* دکمه‌ها */
+button, input[type=submit] {
+    background-color: #ff5722;
+    color: white;
+    border-radius: 8px;
+}
