@@ -19,6 +19,12 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from core.views import (
+    Error404View,
+    Error500View,
+    Error403View,
+    Error400View
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
@@ -37,3 +43,8 @@ if settings.DEBUG:
     # add media static files
     urlpatterns = urlpatterns + \
                   static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  
+handler404 = Error404View.as_view()
+handler500 = Error500View.as_view()
+handler403 = Error403View.as_view()
+handler400 = Error400View.as_view()

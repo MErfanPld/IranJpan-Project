@@ -128,3 +128,23 @@ class MemberAboutSectionView(ListView):
         context['sections'] = MemberAboutSection.objects.filter(is_active=True).order_by('created_at')
         context['site_settings'] = SiteSettings.objects.first()
         return context
+    
+    
+
+
+
+# =============== ERRORS ================
+
+from django.views.generic import TemplateView
+
+class Error404View(TemplateView):
+    template_name = "core/errors/404.html"
+
+class Error500View(TemplateView):
+    template_name = "core/errors/500.html"
+
+class Error403View(TemplateView):
+    template_name = "core/errors/403.html"
+
+class Error400View(TemplateView):
+    template_name = "core/errors/400.html"

@@ -1,0 +1,33 @@
+{% extends "_master.html" %}
+{% load static %}
+
+{% block title %}خطا 400{% endblock %}
+
+{% block contents %}
+
+<div class="page-title-area">
+    <div class="container">
+        <div class="page-title-content">
+            <h2>خطا 400</h2>
+            <ul>
+                <li><a href="{% url 'core:home' %}">خانه</a></li>
+                <li>خطا 400</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<section class="error-area ptb-50">
+    <div class="container text-center">
+        <img src="{% static 'assets/img/400-error.png' %}" alt="400 error">
+
+        <h3>درخواست نامعتبر</h3>
+        <p>درخواست ارسال‌شده معتبر نمی‌باشد.</p>
+
+        <a href="{% url 'core:home' %}" class="default-btn">
+            بازگشت به خانه
+        </a>
+    </div>
+</section>
+
+{% endblock %}

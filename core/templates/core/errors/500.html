@@ -1,0 +1,39 @@
+{% extends "_master.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}خطا 500{% endblock title %}
+
+{% block contents %}
+
+<div class="page-title-area">
+    <div class="container">
+        <div class="page-title-content">
+            <h2>خطا 500</h2>
+            <ul>
+                <li><a href="{% url 'core:home' %}">خانه</a></li>
+                <li>خطا 500</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<section class="error-area ptb-50">
+    <div class="container">
+        <div class="error-content text-center">
+            <img src="{% static 'assets/img/500-error.png' %}" alt="500 error">
+
+            <h3>خطا 500: خطای داخلی سرور</h3>
+            <p>
+                متأسفانه مشکلی در سرور رخ داده است.
+                لطفاً چند دقیقه بعد دوباره تلاش کنید.
+            </p>
+
+            <a href="{% url 'core:home' %}" class="default-btn">
+                بازگشت به خانه
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock contents %}
