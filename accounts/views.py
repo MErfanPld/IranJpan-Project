@@ -3,6 +3,8 @@ from django.contrib.auth import login, logout
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
+from settings.models import SiteSettings
+
 from .forms import LoginForm, RegisterForm
 
 
@@ -20,6 +22,10 @@ class LoginView(FormView):
 
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['site_settings'] = SiteSettings.objects.first()
+        return context
 
 class RegisterView(FormView):
     template_name = "accounts/register.html"
@@ -30,6 +36,10 @@ class RegisterView(FormView):
         form.save()
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['site_settings'] = SiteSettings.objects.first()
+        return context
 
 class LogoutView(FormView):
     def dispatch(self, request, *args, **kwargs):

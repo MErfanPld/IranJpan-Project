@@ -56,6 +56,7 @@ class SearchResultsView(ListView):
         context = super().get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
         context['cats'] = Category.objects.all()
+        context['site_settings'] = SiteSettings.objects.first()
         context['popular_articles'] = Article.objects.filter(
             is_published=True
         ).order_by('-created_at')[:5]
@@ -98,6 +99,10 @@ class BusinessGuideListView(ListView):
     def get_queryset(self):
         return Country.objects.filter(is_active=True)
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['site_settings'] = SiteSettings.objects.first()
+        return context
 
 class BusinessGuideDetailView(DetailView):
     model = Country
@@ -109,6 +114,7 @@ class BusinessGuideDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['sections'] = self.object.sections.filter(is_active=True)
+        context['site_settings'] = SiteSettings.objects.first()
         return context
 
 
@@ -120,4 +126,5 @@ class MemberAboutSectionView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['sections'] = MemberAboutSection.objects.filter(is_active=True).order_by('created_at')
+        context['site_settings'] = SiteSettings.objects.first()
         return context
