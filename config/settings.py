@@ -26,7 +26,14 @@ SECRET_KEY = 'django-insecure-s!o!l7jbivf$%pz#^o0a$i$#*k5$3qjcts67@sjpzcw$tm27rd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'iranjapancc.com',
+    'www.iranjapancc.com',
+    'iranjapancc.net',
+    'www.iranjapancc.net',
+    'localhost',
+]
 
 
 # Application definition
@@ -123,7 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'fa-ir'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran' 
 
 USE_I18N = True
 
@@ -134,18 +141,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 # STATIC_URL = 'static/'
-STATIC_URL = '/site_statics/'
+STATIC_URL = '/static/'  
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "assets")
+    BASE_DIR / "assets", 
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static_cdn", "static_root")
+STATIC_ROOT = BASE_DIR / "static_cdn" / "static_root"  
 
 MEDIA_URL = '/media/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, "static_cdn", "media_root")
-
+MEDIA_ROOT = BASE_DIR / "static_cdn" / "media_root"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -157,23 +162,50 @@ AUTH_USER_MODEL = 'users.User'
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
 import os
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
         'file': {
-            'level': 'DEBUG',
+            'level': 'WARNING',   
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'django_error.log'),
+            'filename': BASE_DIR / 'logs' / 'django_error.log',
+            'formatter': 'verbose',
+        },
+    },
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
         },
     },
     'loggers': {
         'django': {
             'handlers': ['file'],
-            'level': 'DEBUG',
+            'level': 'WARNING',
             'propagate': True,
         },
     },
 }
 
+
+# ==============================================================================
+# امنیت پیشرفته (ضروری برای تولید)
+# ==============================================================================
+# 🔒 اجبار استفاده از HTTPS
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# 🍪 کوکی‌های امن
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_HTTPONLY = True
+
+# 🛡️ هدرهای امنیتی
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_HSTS_SECONDS = 31536000  # 1 سال
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
