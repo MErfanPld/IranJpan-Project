@@ -9,6 +9,7 @@
     <div class="container">
         <div class="page-title-content">
             <h2>داشبورد کاربری</h2>
+            <br>
             <ul>
                 <li><a href="{% url 'core:home' %}">خانه</a></li>
                 <li>داشبورد</li>
@@ -49,13 +50,21 @@
                             {{ request.user.email }}
                         </li>
                         {% endif %}
+
+
                     </ul>
+                                            <br>
+
+                    <a href="{% url 'dashboard:list' %}" class="btn btn-warning mb-4">
+                        صندوق پیام
+                    </a>
                 </div>
             </div>
 
         </div>
     </div>
 </section>
+
 
 <!-- Membership Status -->
 <section class="container pb-5">

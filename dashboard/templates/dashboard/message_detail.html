@@ -1,0 +1,161 @@
+{% extends "_master.html" %}
+
+{% block title %}{{ page_title }}{% endblock title %}
+
+{% block contents %}
+<!-- Page Title -->
+<div class="page-title-area">
+    <div class="container">
+        <div class="page-title-content">
+            <h2>{{ page_title }}</h2>
+            <br>
+            <ul>
+                <li><a href="{% url 'core:home' %}">خانه</a></li>
+                <li><a href="{% url 'dashboard:list' %}">صندوق پیام‌ها</a></li>
+                <li>{{ other_user.get_full_name }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="card">
+        <!-- Header -->
+        <div class="card-header bg-danger text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">{{ other_user.get_full_name }}</h5>
+                <a href="{% url 'dashboard:list' %}" class="btn btn-light btn-sm">
+                    <i class="fas fa-arrow-left"></i> بازگشت
+                </a>
+            </div>
+        </div>
+        
+        <!-- Message Container -->
+        <div class="card-body message-container" style="height: 500px; overflow-y: auto;">
+            {% for msg in messages %}
+            <div class="message {% if msg.sender == user %}sent{% else %}received{% endif %}">
+                <div class="message-content">
+                    {% if msg.message %}
+                    <p>{{ msg.message }}</p>
+                    {% endif %}
+                    {% if msg.image %}
+                    <img src="{{ msg.image.url }}" class="img-fluid mt-2" alt="عکس">
+                    {% endif %}
+                </div>
+                <small class="text-muted">{{ msg.jcreated_at }}</small>
+            </div>
+            {% empty %}
+            <div class="text-center py-5">
+                <i class="fas fa-inbox fa-3x text-muted"></i>
+                <p class="text-muted mt-3">هیچ پیامی وجود ندارد</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Message Input -->
+        <div class="card-footer">
+            <form method="post" enctype="multipart/form-data" id="messageForm">
+                {% csrf_token %}
+                
+                <div class="form-group mb-3">
+                    {{ form.message }}
+                    {% if form.message.errors %}
+                    <div class="text-danger">{{ form.message.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group mb-3">
+                    <label class="small">آپلود عکس (اختیاری):</label>
+                    {{ form.image }}
+                    {% if form.image.errors %}
+                    <div class="text-danger">{{ form.image.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-danger">ارسال پیام</button>
+                </div>
+                                <br>
+<br>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+
+<script>
+// اسکرول به پایین
+window.addEventListener('load', function() {
+    const container = document.querySelector('.message-container');
+    if (container) {
+        container.scrollTop = container.scrollHeight;
+    }
+});
+</script>
+
+<style>
+.message-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+.message {
+    margin-bottom: 15px;
+    max-width: 70%;
+}
+
+.message.sent {
+    margin-left: auto;
+    text-align: left;
+}
+
+.message.received {
+    margin-right: auto;
+    text-align: right;
+}
+
+.message-content {
+    padding: 12px 15px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.message.sent .message-content {
+    background-color:rgb(247, 152, 136);
+    color: white;
+}
+
+.message.received .message-content {
+    background-color: #e9ecef;
+}
+
+.message-content p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.message-content img {
+    max-height: 400px;
+    border-radius: 8px;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.card-footer {
+    background-color: #fff;
+    border-top: none;
+}
+
+textarea[name="message"] {
+    min-height: 80px;
+    resize: vertical;
+    border-radius: 8px;
+    padding: 10px;
+}
+</style>
+{% endblock %}
