@@ -162,15 +162,23 @@ AUTH_USER_MODEL = 'users.User'
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
 import os
+LOGS_DIR = BASE_DIR / 'logs'
+LOGS_DIR.mkdir(exist_ok=True) 
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
         'file': {
-            'level': 'WARNING',   
+            'level': 'WARNING',
             'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'logs' / 'django_error.log',
+            'filename': LOGS_DIR / 'django_error.log',
             'formatter': 'verbose',
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
         },
     },
     'formatters': {
@@ -178,16 +186,19 @@ LOGGING = {
             'format': '{levelname} {asctime} {module} {message}',
             'style': '{',
         },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
     },
     'loggers': {
         'django': {
-            'handlers': ['file'],
+            'handlers': ['file', 'console'],
             'level': 'WARNING',
             'propagate': True,
         },
     },
 }
-
 
 # ==============================================================================
 # امنیت پیشرفته (ضروری برای تولید)
