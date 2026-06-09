@@ -35,36 +35,38 @@
 </section>
 <!-- End About Area -->
 
-<!-- Start Team Area -->
+
 <section class="team-area">
     <div class="container">
-        <h2 class="section-title text-center mb-5">اعضای هیات مدیره</h2>
+                    <div class="section-title"> 
+                        <h2>هیات مدیره اتاق ژاپن</h2> 
+                    </div>
         <div class="row">
-            {% for member in team_members %}
+            {% for j_member in j_members %}
                     <div class="col-lg-4 col-md-6">
                         <div class="single-team-box">
                             <div class="image">
-                                <img src="{{member.image.url}}" alt="image">
+                                <img src="{{j_member.image.url}}" alt="image">
 
                         <ul class="social mt-2">
-                            {% if member.facebook %}
-                            <li><a href="{{ member.facebook }}" target="_blank"><i class='bx bxl-facebook'></i></a></li>
+                            {% if j_member.facebook %}
+                            <li><a href="{{ j_member.facebook }}" target="_blank"><i class='bx bxl-facebook'></i></a></li>
                             {% endif %}
-                            {% if member.twitter %}
-                            <li><a href="{{ member.twitter }}" target="_blank"><i class='bx bxl-twitter'></i></a></li>
+                            {% if j_member.twitter %}
+                            <li><a href="{{ j_member.twitter }}" target="_blank"><i class='bx bxl-twitter'></i></a></li>
                             {% endif %}
-                            {% if member.linkedin %}
-                            <li><a href="{{ member.linkedin }}" target="_blank"><i class='bx bxl-linkedin'></i></a></li>
+                            {% if j_member.linkedin %}
+                            <li><a href="{{ j_member.linkedin }}" target="_blank"><i class='bx bxl-linkedin'></i></a></li>
                             {% endif %}
-                            {% if member.instagram %}
-                            <li><a href="{{ member.instagram }}" target="_blank"><i class='bx bxl-instagram'></i></a></li>
+                            {% if j_member.instagram %}
+                            <li><a href="{{ j_member.instagram }}" target="_blank"><i class='bx bxl-instagram'></i></a></li>
                             {% endif %}
                         </ul>
                             </div>
 
                             <div class="content">
-                                <h3>{{member.name}}</h3>
-                                <span>{{member.role}}</span>
+                                <h3>{{j_member.name}}</h3>
+                                <span>{{j_member.role}}</span>
                             </div>
                         </div>
                     </div>
@@ -75,6 +77,5 @@
         </div>
     </div>
 </section>
-<!-- End Team Area -->
 
 {% endblock contents %}

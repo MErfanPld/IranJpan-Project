@@ -69,8 +69,10 @@ class AboutUsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['about'] = AboutUs.objects.first()
-        context['team_members'] = TeamMember.objects.all()
+        # context['team_members'] = TeamMember.objects.all()
         context['site_settings'] = SiteSettings.objects.first()
+        context['site_settings'] = SiteSettings.objects.first()
+        context['j_members'] = JapanChamberDirectorsMember.objects.all()
         return context
     
     
