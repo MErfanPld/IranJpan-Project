@@ -11,7 +11,7 @@ admin.site.index_title = "خوش آمدید"
 
 @admin.register(Slider)
 class SliderAdmin(admin.ModelAdmin):
-    list_display = ("title", "is_active", "image_preview")
+    list_display = ("title", 'link',"is_active", "image_preview")
     list_filter = ("is_active", "created_at")
     search_fields = ("title",)
     readonly_fields = ("image_preview",)
@@ -19,7 +19,7 @@ class SliderAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            "fields": ("title", "image", "image_preview", "is_active")
+            "fields": ("title", 'link',"image", "image_preview", "is_active")
         }),
     )
 
