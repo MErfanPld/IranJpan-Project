@@ -30,7 +30,7 @@ class Slider(models.Model):
 
 class AboutUs(models.Model):
     title = models.CharField("عنوان", max_length=255, default="درباره ما")
-    content = models.TextField("متن")
+    content = RichTextUploadingField(verbose_name="متن")
     image = models.ImageField("تصویر", upload_to="about_us/")
     created_at = models.DateTimeField("تاریخ ایجاد", auto_now_add=True)
     updated_at = models.DateTimeField("آخرین بروزرسانی", auto_now=True)

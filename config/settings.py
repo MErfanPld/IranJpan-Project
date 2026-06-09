@@ -26,14 +26,14 @@ SECRET_KEY = 'django-insecure-s!o!l7jbivf$%pz#^o0a$i$#*k5$3qjcts67@sjpzcw$tm27rd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = [
-    'iranjapancc.com',
-    'www.iranjapancc.com',
-    'iranjapancc.net',
-    'www.iranjapancc.net',
-    'localhost',
-]
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = [
+#     'iranjapancc.com',
+#     'www.iranjapancc.com',
+#     'iranjapancc.net',
+#     'www.iranjapancc.net',
+#     'localhost',
+# ]
 
 
 # Application definition
