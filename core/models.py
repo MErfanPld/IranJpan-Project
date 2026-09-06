@@ -16,7 +16,7 @@ class Slider(models.Model):
     image = models.ImageField("تصویر", upload_to=upload_slider_image)
     link = models.URLField("لینک", blank=True,null=True)
     is_active = models.BooleanField("فعال", default=True)
-    created_at = models.DateTimeField("تاریخ ایجاد", auto_now_add=True)
+    created_at = models.DateTimeField("تاریخ ایجاد")
 
     class Meta:
         verbose_name = "اسلایدر"

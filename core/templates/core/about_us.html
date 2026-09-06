@@ -28,7 +28,8 @@
             </div>
             <div class="about-content">
                 <h3>{{ about.title }}</h3>
-                <p>{{ about.content|linebreaks }}</p>
+                <p>{{ about.content|safe  }}</p>
+                                                    <a href='' class="btn w-40 text-light" style='background:#df1c22;'> دانلود اساسنامه اتاق ژاپن</a>
             </div>
         {% endif %}
     </div>

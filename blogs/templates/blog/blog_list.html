@@ -4,6 +4,26 @@
 {% block title %}مقالات{% endblock title %}
 
 {% block contents %}
+
+<style>
+    .stay-connected-list li a.whatsapp{
+    background: #1ebe5d;
+}
+
+.stay-connected-list li a.whatsapp:hover{
+    background: #1ebe5d;
+}
+
+.stay-connected-list li a.bale{
+    background: #0F5FFF;
+}
+
+.stay-connected-list li a.bale:hover{
+    background: #0b4cd1;
+}
+
+</style>
+
         <!-- Start Page Banner -->
         <div class="page-title-area">
             <div class="container">
@@ -24,59 +44,38 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <aside class="widget-area">
-                            <section class="widget widget_newsletter">
-                                <div class="newsletter-content">
-                                    <h3>عضویت در خبرنامه ما در خبرنامه ما مشترک شوید</h3>
-                                </div>   
-
-                                    <a href='' class="btn w-100 text-light" style='background:#df1c22;'>مشترک شدن</a>
-                            </section>
-
                             <section class="widget widget_stay_connected">
                                 <h3 class="widget-title">ارتباط با ما</h3>
                                 
                                 <ul class="stay-connected-list">
                                     <li>
-                                        <a href="#">
-                                            <i class='bx bxl-facebook'></i>
-                                            120345 طرفدار
-                                        </a>
+                                        <a href="https://wa.me/989938147385" class="whatsapp">
+                                            <i class='bx bxl-whatsapp'></i>
+                                            واتساپ
+                                            </a>
                                     </li>
 
                                     <li>
-                                        <a href="#" class="twitter">
-                                            <i class='bx bxl-twitter'></i>
-                                            25,321 دنبال کننده
-                                        </a>
+                                        <a href="https://ble.ir/09938147385" class="bale">
+                                            <i class='bx bx-message-rounded-dots'></i>
+                                            بله
+                                            </a>
                                     </li>
 
                                     <li>
-                                        <a href="#" class="linkedin">
+                                        <a href="https://www.linkedin.com/in/iran-japan-chamber-of-commerce-ijcc-b546aa384" class="linkedin">
                                             <i class='bx bxl-linkedin'></i>
-                                            7519 اتصال
-                                        </a>
+                                            لینکدین
+                                            </a>
                                     </li>
 
                                     <li>
-                                        <a href="#" class="youtube">
-                                            <i class='bx bxl-youtube'></i>
-                                            101545 مشترک
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="instagram">
+                                        <a href="https://instagram.com/iranjapancc" class="instagram">
                                             <i class='bx bxl-instagram'></i>
-                                            10129 دنبال کننده
+                                            اینستاگرام
                                         </a>
                                     </li>
 
-                                    <li>
-                                        <a href="#" class="wifi">
-                                            <i class='bx bx-wifi'></i>
-                                            952 مشترک
-                                        </a>
-                                    </li>
                                 </ul>
                             </section>
 
@@ -144,9 +143,11 @@
                             <div class="row align-items-center">
                                 <div class="col-lg-4">
                                     <div class="news-image">
-                                        <a href="{{ article.get_absolute_url }}">
-                                            <img src="{{article.image.url}}" alt="image">
-                                        </a>
+                                        {% if article.image %}
+    <img src="{{ article.image.url }}" alt="image">
+{% else %}
+    <img src="https://amescounselingcenter.com/wp-content/uploads/2022/02/blog_default.png" alt="No Image">
+{% endif %}
                                     </div>
                                 </div>
 

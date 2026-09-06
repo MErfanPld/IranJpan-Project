@@ -19,7 +19,7 @@ class SliderAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            "fields": ("title", 'link',"image", "image_preview", "is_active")
+            "fields": ("title", 'link',"image", "image_preview", "is_active","created_at")
         }),
     )
 
@@ -110,6 +110,7 @@ class TeamMemberAdmin(admin.ModelAdmin):
     list_display = ('name', 'role')
     list_filter = ('role',)
     search_fields = ('name', 'role')
+    readonly_fields = ('created_at',)
     fieldsets = (
         ('اطلاعات شخصی', {
             'fields': ('name', 'role', 'image')

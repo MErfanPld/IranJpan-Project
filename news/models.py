@@ -97,5 +97,8 @@ class News(models.Model):
         
         
     def jpublished_at(self):
+        if not self.published_at:
+            return '-'
         return jalali_converter(self.published_at)
-    jpublished_at.short_description = 'تاریخ ایجاد'
+    
+    jpublished_at.short_description = 'تاریخ انتشار'
