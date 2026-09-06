@@ -1,82 +1,62 @@
 {% extends "_master.html" %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}درباره ما{% endblock title %}
+{% block title %}{% trans "درباره ما" %}{% endblock title %}
 
 {% block contents %}
-
-<!-- Start Page Banner -->
 <div class="page-title-area">
     <div class="container">
         <div class="page-title-content">
-            <h2>درباره ما</h2>
+            <h2>{% trans "درباره ما" %}</h2>
             <ul>
-                <li><a href="{% url 'core:home' %}">خانه</a></li>
-                <li>درباره ما</li>
+                <li><a href="{% url 'core:home' %}">{% trans "خانه" %}</a></li>
+                <li>{% trans "درباره ما" %}</li>
             </ul>
         </div>
     </div>
 </div>
-<!-- End Page Banner -->
 
-<!-- Start About Area -->
 <section class="about-area ptb-50">
     <div class="container">
         {% if about %}
             <div class="about-image mb-4">
-                <img src="{{ about.image.url }}" alt="About Us Image">
+                <img src="{{ about.image.url }}" alt="{% trans 'About Us Image' %}">
             </div>
             <div class="about-content">
                 <h3>{{ about.title }}</h3>
                 <p>{{ about.content|safe  }}</p>
-                                                    <a href='' class="btn w-40 text-light" style='background:#df1c22;'> دانلود اساسنامه اتاق ژاپن</a>
+                <a href='' class="btn w-40 text-light" style='background:#df1c22;'>{% trans "دانلود اساسنامه اتاق ژاپن" %}</a>
             </div>
         {% endif %}
     </div>
 </section>
-<!-- End About Area -->
-
 
 <section class="team-area">
     <div class="container">
-                    <div class="section-title"> 
-                        <h2>هیات مدیره اتاق ژاپن</h2> 
-                    </div>
+        <div class="section-title">
+            <h2>{% trans "هیات مدیره اتاق ژاپن" %}</h2>
+        </div>
         <div class="row">
             {% for j_member in j_members %}
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-team-box">
-                            <div class="image">
-                                <img src="{{j_member.image.url}}" alt="image">
-
-                        <ul class="social mt-2">
-                            {% if j_member.facebook %}
-                            <li><a href="{{ j_member.facebook }}" target="_blank"><i class='bx bxl-facebook'></i></a></li>
-                            {% endif %}
-                            {% if j_member.twitter %}
-                            <li><a href="{{ j_member.twitter }}" target="_blank"><i class='bx bxl-twitter'></i></a></li>
-                            {% endif %}
-                            {% if j_member.linkedin %}
-                            <li><a href="{{ j_member.linkedin }}" target="_blank"><i class='bx bxl-linkedin'></i></a></li>
-                            {% endif %}
-                            {% if j_member.instagram %}
-                            <li><a href="{{ j_member.instagram }}" target="_blank"><i class='bx bxl-instagram'></i></a></li>
-                            {% endif %}
-                        </ul>
-                            </div>
-
-                            <div class="content">
-                                <h3>{{j_member.name}}</h3>
-                                <span>{{j_member.role}}</span>
-                            </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-team-box">
+                        <div class="image">
+                            <img src="{{j_member.image.url}}" alt="image">
+                            <ul class="social mt-2">
+                                {% if j_member.facebook %}<li><a href="{{ j_member.facebook }}" target="_blank"><i class='bx bxl-facebook'></i></a></li>{% endif %}
+                                {% if j_member.twitter %}<li><a href="{{ j_member.twitter }}" target="_blank"><i class='bx bxl-twitter'></i></a></li>{% endif %}
+                                {% if j_member.linkedin %}<li><a href="{{ j_member.linkedin }}" target="_blank"><i class='bx bxl-linkedin'></i></a></li>{% endif %}
+                                {% if j_member.instagram %}<li><a href="{{ j_member.instagram }}" target="_blank"><i class='bx bxl-instagram'></i></a></li>{% endif %}
+                            </ul>
+                        </div>
+                        <div class="content">
+                            <h3>{{j_member.name}}</h3>
+                            <span>{{j_member.role}}</span>
                         </div>
                     </div>
+                </div>
             {% endfor %}
-
-
-            
         </div>
     </div>
 </section>
-
 {% endblock contents %}

@@ -1,9 +1,9 @@
-{% load static %}
+{% load static i18n %}
 <!doctype html>
-<html lang="fa" dir="rtl" class="theme-light">
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" class="theme-light">
     <head>		
         {% include "./includes/_header.html" %}
-		<title>{% block title %}خبرنامه ایران - ژاپن{% endblock %}</title>
+		<title>{% block title %}{% trans "خبرنامه ایران - ژاپن" %}{% endblock %}</title>
         <link rel="icon" type="image/png" href="{% static "img/fa.ico" %}">
     </head>
 
@@ -18,7 +18,7 @@
                     <div class="circle circle-2"></div>
                     <div class="circle circle-3"></div>
                 </div>
-                <span>در حال بارگذاری...</span>
+                <span>{% trans "در حال بارگذاری..." %}</span>
             </div>
         </div>
         <!-- End Preloader -->
@@ -41,7 +41,7 @@
             <div class="container">
                 <div class="copyright-area-content">
                     <p>
-                        © کلیه حقوق این وب‌سایت متعلق به اتاق بازرگانی ایران و ژاپن می‌باشد. هرگونه استفاده، بازنشر یا کپی‌برداری از محتوای سایت بدون کسب مجوز کتبی ممنوع است.
+                        {% trans "© کلیه حقوق این وب‌سایت متعلق به اتاق بازرگانی ایران و ژاپن می‌باشد. هرگونه استفاده، بازنشر یا کپی‌برداری از محتوای سایت بدون کسب مجوز کتبی ممنوع است." %}
                     </p>
                 </div>
             </div>

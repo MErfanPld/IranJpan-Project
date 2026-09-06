@@ -1,0 +1,62 @@
+{% extends "_master.html" %}
+{% load static i18n %}
+
+{% block title %}{{ member.full_name }}{% endblock title %}
+
+{% block contents %}
+<div class="page-title-area">
+    <div class="container">
+        <div class="page-title-content">
+            <h2>{{ member.full_name }}</h2>
+            <ul>
+                <li><a href="{% url 'core:home' %}">{% trans "خانه" %}</a></li>
+                <li><a href="{% url 'core:chamber_members_list' %}">{% trans "اعضا" %}</a></li>
+                <li>{{ member.full_name }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<section class="member-profile-area ptb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="text-center p-4 border rounded mb-4">
+                    <img src="{{ member.photo.url }}" alt="{{ member.full_name }}"
+                         style="width:150px;height:150px;object-fit:cover;border-radius:50%;" class="mb-3">
+                    <h4>{{ member.full_name }}</h4>
+                    <span class="text-muted d-block mb-2">{{ member.position }}</span>
+
+                    {% if member.company_logo %}
+                        <img src="{{ member.company_logo.url }}" alt="{{ member.company_name }}" style="max-height:70px;" class="my-3">
+                    {% endif %}
+                    <h6>{{ member.company_name }}</h6>
+                    <small class="text-muted">{% trans "کد عضویت:" %} {{ member.membership_code }}</small>
+
+                    <hr>
+                    <ul class="list-unstyled text-start">
+                        {% if member.phone_number %}<li><i class='bx bx-phone'></i> {{ member.phone_number }}</li>{% endif %}
+                        {% if member.email %}<li><i class='bx bx-envelope'></i> {{ member.email }}</li>{% endif %}
+                        {% if member.website %}<li><i class='bx bx-globe'></i> <a href="{{ member.website }}" target="_blank">{{ member.website }}</a></li>{% endif %}
+                        {% if member.address %}<li><i class='bx bx-map'></i> {{ member.address }}</li>{% endif %}
+                        {% if member.country %}<li><i class='bx bx-flag'></i> {{ member.country.name }}</li>{% endif %}
+                    </ul>
+
+                    {% if member.catalog %}
+                        <a href="{{ member.catalog.url }}" download class="btn w-100 text-light mt-3" style="background:#df1c22;">
+                            {% trans "دانلود کاتالوگ" %}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="p-4 border rounded">
+                    <h4 class="mb-3">{% trans "درباره" %}</h4>
+                    <p>{{ member.bio|linebreaks }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock contents %}

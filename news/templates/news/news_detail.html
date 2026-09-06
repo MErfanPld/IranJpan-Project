@@ -1,8 +1,7 @@
 {% extends "_master.html" %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}اخبار {% endblock title %}
-
+{% block title %}{% trans "اخبار" %}{% endblock title %}
 
 {% block contents %}
 <div class="page-title-area">
@@ -10,8 +9,8 @@
         <div class="page-title-content">
             <h2>{{ news.title }}</h2>
             <ul>
-                <li><a href="{% url 'core:home' %}">خانه</a></li>
-                <li>جزئیات اخبار</li>
+                <li><a href="{% url 'core:home' %}">{% trans "خانه" %}</a></li>
+                <li>{% trans "جزئیات اخبار" %}</li>
             </ul>
         </div>
     </div>
@@ -20,115 +19,60 @@
 <section class="news-details-area bg-ffffff ptb-50">
     <div class="container">
         <div class="row">
-            <!-- Sidebar -->
-                    <div class="col-lg-4">
-                        <aside class="widget-area">
+            <div class="col-lg-4">
+                <aside class="widget-area">
+                    <section class="widget widget_stay_connected">
+                        <h3 class="widget-title">{% trans "ارتباط با ما" %}</h3>
+                        <ul class="stay-connected-list">
+                            <li><a href="#"><i class='bx bxl-facebook'></i> {% blocktrans %}120345 طرفدار{% endblocktrans %}</a></li>
+                            <li><a href="#" class="twitter"><i class='bx bxl-twitter'></i> {% blocktrans %}25,321 دنبال کننده{% endblocktrans %}</a></li>
+                            <li><a href="#" class="linkedin"><i class='bx bxl-linkedin'></i> {% blocktrans %}7519 اتصال{% endblocktrans %}</a></li>
+                            <li><a href="#" class="youtube"><i class='bx bxl-youtube'></i> {% blocktrans %}101545 مشترک{% endblocktrans %}</a></li>
+                            <li><a href="#" class="instagram"><i class='bx bxl-instagram'></i> {% blocktrans %}10129 دنبال کننده{% endblocktrans %}</a></li>
+                            <li><a href="#" class="wifi"><i class='bx bx-wifi'></i> {% blocktrans %}952 مشترک{% endblocktrans %}</a></li>
+                        </ul>
+                    </section>
 
-                            <section class="widget widget_stay_connected">
-                                <h3 class="widget-title">ارتباط با ما</h3>
-                                
-                                <ul class="stay-connected-list">
-                                    <li>
-                                        <a href="#">
-                                            <i class='bx bxl-facebook'></i>
-                                            120345 طرفدار
-                                        </a>
-                                    </li>
+                    <section class="widget widget_tag_cloud">
+                        <h3 class="widget-title">{% trans "دسته بندی ها" %}</h3>
+                        <div class="tagcloud">
+                            {% for category in cats %}
+                                <a href="{% url 'news:category' category.slug %}">{{ category.title }}</a>
+                            {% empty %}
+                                <span>{% trans "دسته بندی وجود ندارد" %}</span>
+                            {% endfor %}
+                        </div>
+                    </section>
 
-                                    <li>
-                                        <a href="#" class="twitter">
-                                            <i class='bx bxl-twitter'></i>
-                                            25,321 دنبال کننده
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="linkedin">
-                                            <i class='bx bxl-linkedin'></i>
-                                            7519 اتصال
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="youtube">
-                                            <i class='bx bxl-youtube'></i>
-                                            101545 مشترک
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="instagram">
-                                            <i class='bx bxl-instagram'></i>
-                                            10129 دنبال کننده
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#" class="wifi">
-                                            <i class='bx bx-wifi'></i>
-                                            952 مشترک
-                                        </a>
-                                    </li>
-                                </ul>
-                            </section>
-
-                            <section class="widget widget_tag_cloud">
-                                <h3 class="widget-title">دسته بندی ها</h3>
-
-                                <div class="tagcloud">
-                                    {% for category in cats %}
-                                        <a href="{% url 'news:category' category.slug %}">
-                                            {{ category.title }}
-                                        </a>
-                                    {% empty %}
-                                        <span>دسته بندی وجود ندارد</span>
-                                    {% endfor %}
+                    <section class="widget widget_popular_posts_thumb">
+                        <h3 class="widget-title">{% trans "اخبار های محبوب" %}</h3>
+                        {% for new in popular_news %}
+                            <article class="item">
+                                <a href="{{ new.get_absolute_url }}" class="thumb">
+                                    {% if new.image %}
+                                        <span class="fullimage cover" style="background-image:url('{{ new.image.url }}')" role="img"></span>
+                                    {% endif %}
+                                </a>
+                                <div class="info">
+                                    <h4 class="title usmall"><a href="{{ new.get_absolute_url }}">{{ new.title }}</a></h4>
+                                    <span>{{ new.created_at|date:"d M Y" }}</span>
                                 </div>
-                            </section>
+                            </article>
+                        {% endfor %}
+                    </section>
+                </aside>
+            </div>
 
-
-
-                            <section class="widget widget_popular_posts_thumb">
-                                <h3 class="widget-title">اخبار های محبوب</h3>
-
-                                {% for new in popular_news %}
-                                    <article class="item">
-                                        <a href="{{ new.get_absolute_url }}" class="thumb">
-                                            {% if new.image %}
-                                                <span class="fullimage cover"
-                                                    style="background-image:url('{{ new.image.url }}')"
-                                                    role="img"></span>
-                                            {% endif %}
-                                        </a>
-                                        <div class="info">
-                                            <h4 class="title usmall">
-                                                <a href="{{ new.get_absolute_url }}">
-                                                    {{ new.title }}
-                                                </a>
-                                            </h4>
-                                            <span>{{ new.created_at|date:"d M Y" }}</span>
-                                        </div>
-                                    </article>
-                                {% endfor %}
-                            </section>
-
-
-                        </aside>
-                    </div>
-
-            <!-- Main Content -->
             <div class="col-lg-8 col-md-12">
                 <div class="blog-details-desc">
                     <div class="article-image">
                         <img src="{{ news.image.url }}" alt="{{ news.title }}">
                     </div>
-
                     <div class="article-content">
                         <span><a href="#"> {{ news.jpublished_at }} </span>
                         <h3>{{ news.title }}</h3>
                         <p>{{ news.content }}</p>
                     </div>
-
                 </div>
             </div>
         </div>

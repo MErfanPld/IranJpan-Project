@@ -130,7 +130,37 @@ class MemberAboutSectionView(ListView):
         context['sections'] = MemberAboutSection.objects.filter(is_active=True).order_by('created_at')
         context['site_settings'] = SiteSettings.objects.first()
         return context
-    
+
+
+
+from django.views.generic import ListView, DetailView
+from .models import ChamberMember
+
+class ChamberMemberListView(ListView):
+    model = ChamberMember
+    template_name = 'core/chamber_members_list.html'
+    context_object_name = 'members'
+    paginate_by = 24
+
+    def get_queryset(self):
+        qs = ChamberMember.objects.filter(is_active=True)
+        q = self.request.GET.get('q')
+        if q:
+            qs = qs.filter(
+                models.Q(full_name__icontains=q) |
+                models.Q(company_name__icontains=q) |
+                models.Q(membership_code__icontains=q)
+            )
+        return qs
+
+
+class ChamberMemberDetailView(DetailView):
+    model = ChamberMember
+    template_name = 'core/chamber_member_detail.html'
+    context_object_name = 'member'
+
+    def get_queryset(self):
+        return ChamberMember.objects.filter(is_active=True)
     
 
 

@@ -11,4 +11,6 @@ urlpatterns = [
     path('guide/', BusinessGuideListView.as_view(), name='guide_country_list'),
     path('guide/<slug:slug>/', BusinessGuideDetailView.as_view(), name='guide_country_detail'),
     path('memebr/', MemberAboutSectionView.as_view(), name='member_about'),
+    path('members/', ChamberMemberListView.as_view(), name='chamber_members_list'),
+    path('members/<int:pk>/', ChamberMemberDetailView.as_view(), name='chamber_member_detail'),
 ]

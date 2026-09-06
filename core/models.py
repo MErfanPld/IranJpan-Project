@@ -223,3 +223,46 @@ class MemberAboutSection(models.Model):
     jcreated_at.short_description = 'تاریخ ایجاد'
 
 
+from django.urls import reverse
+
+class ChamberMember(models.Model):
+    full_name = models.CharField("نام و نام‌خانوادگی", max_length=255)
+    company_name = models.CharField("نام شرکت", max_length=255)
+    membership_code = models.CharField("کد عضویت", max_length=50, unique=True)
+    position = models.CharField("سمت", max_length=255, blank=True)
+
+    photo = models.ImageField("تصویر فرد", upload_to="chamber_members/photos/")
+    company_logo = models.ImageField("لوگوی شرکت", upload_to="chamber_members/logos/", blank=True, null=True)
+
+    bio = models.TextField("توضیحات / بیوگرافی", blank=True)
+
+    phone_number = models.CharField("تلفن", max_length=20, blank=True)
+    email = models.EmailField("ایمیل", blank=True)
+    website = models.URLField("وبسایت شرکت", blank=True)
+    address = models.CharField("آدرس", max_length=500, blank=True)
+
+    catalog = models.FileField("کاتالوگ", upload_to="chamber_members/catalogs/", blank=True, null=True)
+
+    country = models.ForeignKey(
+        Country, verbose_name="کشور",
+        on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="chamber_members"
+    )
+
+    is_active = models.BooleanField("نمایش در سایت", default=True)
+    created_at = models.DateTimeField("تاریخ ایجاد", auto_now_add=True)
+
+    class Meta:
+        verbose_name = "عضو اتاق بازرگانی"
+        verbose_name_plural = "اعضای اتاق بازرگانی"
+        ordering = ['full_name']
+
+    def __str__(self):
+        return f"{self.full_name} - {self.company_name}"
+
+    def jcreated_at(self):
+        return jalali_converter(self.created_at)
+    jcreated_at.short_description = 'تاریخ ایجاد'
+
+    def get_absolute_url(self):
+        return reverse('core:chamber_member_detail', kwargs={'pk': self.pk})

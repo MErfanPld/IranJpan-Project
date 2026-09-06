@@ -4,3 +4,6 @@ def search_form(request):
     return {
         'search_form': SearchForm(request.GET or None)
     }
+
+def redirect_to(request):
+    return {'redirect_to': request.path}

@@ -1,8 +1,10 @@
 from django.contrib import admin
+from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline
 from .models import SiteSettings, UsefulLink, Advertisement
+from core.translation_utils import AutoTranslateAdminMixin
 
 
-class UsefulLinkInline(admin.TabularInline):
+class UsefulLinkInline(TranslationTabularInline):
     model = UsefulLink
     extra = 1
     min_num = 0
@@ -11,31 +13,24 @@ class UsefulLinkInline(admin.TabularInline):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-
         if request.user.is_superuser:
             return qs
-
         if hasattr(self.model, 'user'):
             return qs.filter(user=request.user)
-
         return qs
 
     def has_change_permission(self, request, obj=None):
         if request.user.is_superuser:
             return True
-
         if obj and hasattr(obj, 'user'):
             return obj.user == request.user
-
         return True
 
     def has_delete_permission(self, request, obj=None):
         if request.user.is_superuser:
             return True
-
         if obj and hasattr(obj, 'user'):
             return obj.user == request.user
-
         return False
 
     def has_add_permission(self, request, obj=None):
@@ -43,44 +38,40 @@ class UsefulLinkInline(admin.TabularInline):
 
 
 @admin.register(SiteSettings)
-class SiteSettingsAdmin(admin.ModelAdmin):
+class SiteSettingsAdmin(AutoTranslateAdminMixin, TabbedTranslationAdmin):
+    TRANSLATABLE_FIELDS = ['site_name', 'footer_text', 'about_text', 'addr']
+
     list_display = ('site_name', 'updated_at')
     inlines = [UsefulLinkInline]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-
         if request.user.is_superuser:
             return qs
-
         if hasattr(self.model, 'user'):
             return qs.filter(user=request.user)
-
         return qs
 
     def has_change_permission(self, request, obj=None):
         if request.user.is_superuser:
             return True
-
         if obj and hasattr(obj, 'user'):
             return obj.user == request.user
-
         return True
 
     def has_delete_permission(self, request, obj=None):
         if request.user.is_superuser:
             return True
-
         if obj and hasattr(obj, 'user'):
             return obj.user == request.user
-
         return False
 
     def has_add_permission(self, request, obj=None):
-        # فقط یک رکورد SiteSettings مجاز باشد
         return SiteSettings.objects.count() == 0
 
 
 @admin.register(Advertisement)
-class AdvertisementAdmin(admin.ModelAdmin):
+class AdvertisementAdmin(AutoTranslateAdminMixin, TabbedTranslationAdmin):
+    TRANSLATABLE_FIELDS = ['title']
+
     list_display = ('title',)

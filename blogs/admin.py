@@ -1,16 +1,17 @@
 from django.contrib import admin
+from modeltranslation.admin import TabbedTranslationAdmin
 from .models import Category, Tag, Article, Comment
+from core.translation_utils import AutoTranslateAdminMixin
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(AutoTranslateAdminMixin, TabbedTranslationAdmin):
+    TRANSLATABLE_FIELDS = ['title']
+
     list_display = ('title', 'slug')
     search_fields = ('title',)
     prepopulated_fields = {'slug': ('title',)}
 
-    # -------------------------
-    # محدود کردن دسترسی کاربران
-    # -------------------------
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
@@ -32,17 +33,17 @@ class CategoryAdmin(admin.ModelAdmin):
         return False
 
     def has_add_permission(self, request):
-        return True  # همه می‌توانند کامنت اضافه کنند
+        return True
+
 
 @admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
+class TagAdmin(AutoTranslateAdminMixin, TabbedTranslationAdmin):
+    TRANSLATABLE_FIELDS = ['title']
+
     list_display = ('title', 'slug')
     search_fields = ('title',)
     prepopulated_fields = {'slug': ('title',)}
 
-    # -------------------------
-    # محدود کردن دسترسی کاربران
-    # -------------------------
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
@@ -64,10 +65,10 @@ class TagAdmin(admin.ModelAdmin):
         return False
 
     def has_add_permission(self, request):
-        return True  # همه می‌توانند کامنت اضافه کنند
+        return True
 
 
-class CommentInline(admin.TabularInline):
+class CommentInline(admin.TabularInline):  # ترجمه نمی‌شود - بدون تغییر
     model = Comment
     extra = 0
     readonly_fields = ('user', 'text', 'created_at')
@@ -93,11 +94,13 @@ class CommentInline(admin.TabularInline):
         return False
 
     def has_add_permission(self, request, obj=None):
-        return True  # همه می‌توانند کامنت اضافه کنند
+        return True
 
 
 @admin.register(Article)
-class ArticleAdmin(admin.ModelAdmin):
+class ArticleAdmin(AutoTranslateAdminMixin, TabbedTranslationAdmin):
+    TRANSLATABLE_FIELDS = ['title', 'body']
+
     list_display = (
         'title',
         'author',
@@ -120,9 +123,6 @@ class ArticleAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_at'
     inlines = [CommentInline]
 
-    # -------------------------
-    # محدود کردن دسترسی کاربران
-    # -------------------------
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
@@ -144,19 +144,16 @@ class ArticleAdmin(admin.ModelAdmin):
         return False
 
     def has_add_permission(self, request):
-        return True  # همه می‌توانند مقاله اضافه کنند
+        return True
 
 
 @admin.register(Comment)
-class CommentAdmin(admin.ModelAdmin):
+class CommentAdmin(admin.ModelAdmin):  # ترجمه نمی‌شود - بدون تغییر
     list_display = ('user', 'article', 'jcreated_at')
     list_filter = ('created_at',)
     search_fields = ('text', 'user__phone_number')
     readonly_fields = ('created_at',)
 
-    # -------------------------
-    # محدود کردن دسترسی کاربران
-    # -------------------------
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
@@ -178,4 +175,4 @@ class CommentAdmin(admin.ModelAdmin):
         return False
 
     def has_add_permission(self, request):
-        return True  # همه می‌توانند کامنت اضافه کنند
+        return True

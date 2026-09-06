@@ -1,0 +1,54 @@
+{% extends "_master.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "اعضای اتاق بازرگانی" %}{% endblock title %}
+
+{% block contents %}
+<div class="page-title-area">
+    <div class="container">
+        <div class="page-title-content">
+            <h2>{% trans "اعضای اتاق بازرگانی" %}</h2>
+            <ul>
+                <li><a href="{% url 'core:home' %}">{% trans "خانه" %}</a></li>
+                <li>{% trans "اعضا" %}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<section class="members-area ptb-50">
+    <div class="container">
+        <form method="get" class="mb-4">
+            <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="{% trans 'جستجو بر اساس نام، شرکت یا کد عضویت' %}">
+        </form>
+
+        <div class="row">
+            {% for member in members %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <a href="{% url 'core:chamber_member_detail' member.pk %}" class="text-decoration-none">
+                        <div class="single-team-box p-3 border rounded d-flex align-items-center" style="gap:15px;">
+                            <img src="{{ member.photo.url }}" alt="{{ member.full_name }}"
+                                 style="width:60px;height:60px;object-fit:cover;border-radius:50%;">
+                            <div>
+                                <h5 class="mb-1">{{ member.full_name }}</h5>
+                                <span class="d-block text-muted">{{ member.company_name }}</span>
+                                <small class="text-muted">{% trans "کد عضویت:" %} {{ member.membership_code }}</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% empty %}
+                <p>{% trans "عضوی یافت نشد." %}</p>
+            {% endfor %}
+        </div>
+
+        {% if is_paginated %}
+        <div class="pagination">
+            {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">{% trans "قبلی" %}</a>{% endif %}
+            <span>{{ page_obj.number }} {% trans "از" %} {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}">{% trans "بعدی" %}</a>{% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock contents %}

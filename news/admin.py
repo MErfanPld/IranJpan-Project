@@ -1,17 +1,18 @@
 from django.contrib import admin
+from modeltranslation.admin import TabbedTranslationAdmin
 from .models import News, NewsCategory
+from core.translation_utils import AutoTranslateAdminMixin
 
 
 @admin.register(NewsCategory)
-class NewsCategoryAdmin(admin.ModelAdmin):
+class NewsCategoryAdmin(AutoTranslateAdminMixin, TabbedTranslationAdmin):
+    TRANSLATABLE_FIELDS = ['title']
+
     list_display = ('title', 'is_active')
     prepopulated_fields = {'slug': ('title',)}
     list_filter = ('is_active',)
     search_fields = ('title',)
 
-    # -------------------------
-    # محدود کردن دسترسی کاربران
-    # -------------------------
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
@@ -33,10 +34,13 @@ class NewsCategoryAdmin(admin.ModelAdmin):
         return False
 
     def has_add_permission(self, request):
-        return True  # همه می‌توانند کامنت اضافه کنند
+        return True
+
 
 @admin.register(News)
-class NewsAdmin(admin.ModelAdmin):
+class NewsAdmin(AutoTranslateAdminMixin, TabbedTranslationAdmin):
+    TRANSLATABLE_FIELDS = ['title', 'short_description', 'content']
+
     list_display = (
         'title',
         'category',
@@ -51,10 +55,6 @@ class NewsAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     date_hierarchy = 'published_at'
 
-
-    # -------------------------
-    # محدود کردن دسترسی کاربران
-    # -------------------------
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
@@ -76,4 +76,4 @@ class NewsAdmin(admin.ModelAdmin):
         return False
 
     def has_add_permission(self, request):
-        return True  # همه می‌توانند کامنت اضافه کنند
+        return True
