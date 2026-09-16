@@ -1,0 +1,88 @@
+/*
+    اصلاحات عمومی برای حالت چپ‌به‌راست (انگلیسی/ژاپنی)
+    این فایل فقط زمانی لود میشه که زبان LTR باشه (از _header.html کنترل میشه)
+*/
+
+/* جهت پیش‌فرض متن */
+html[dir="ltr"] body {
+    text-align: left;
+    direction: ltr;
+}
+
+/* breadcrumb توی page-title-content - جهت لیست و فلش‌ها */
+html[dir="ltr"] .page-title-content ul {
+    padding-left: 0;
+    text-align: left;
+}
+html[dir="ltr"] .page-title-content ul li {
+    display: inline-block;
+    margin-right: 5px;
+    margin-left: 0;
+}
+html[dir="ltr"] .page-title-content ul li::before {
+    content: '/';
+    margin: 0 5px;
+}
+
+/* نوبار - فاصله‌ی آیتم‌ها */
+html[dir="ltr"] .navbar-nav {
+    padding-right: 0;
+}
+html[dir="ltr"] .navbar-nav .nav-item {
+    margin-right: 0;
+    margin-left: 15px;
+}
+
+/* آیکون‌های Boxicons که فاصله‌شون فرض RTL داره */
+html[dir="ltr"] .bx {
+    margin-left: 0;
+    margin-right: 4px;
+}
+
+/* دراپ‌داون‌های بوت‌استرپ (مثل سوییچر زبان و منوهای دیگه) */
+html[dir="ltr"] .dropdown-menu {
+    left: 0;
+    right: auto;
+    text-align: left;
+}
+
+/* سوییچر زبان خودمون */
+html[dir="ltr"] .lang-switcher .lang-menu {
+    left: 0;
+    right: auto;
+}
+html[dir="ltr"] .lang-switcher .lang-menu button {
+    text-align: left;
+}
+
+/* لیست‌های اجتماعی (social) که آیکون‌هاشون معمولاً float دارن */
+html[dir="ltr"] .social {
+    padding-right: 0;
+    text-align: left;
+}
+html[dir="ltr"] .social li {
+    margin-right: 0;
+    margin-left: 8px;
+}
+
+/* کارت‌های تیم/اعضا - چیدمان تصویر و محتوا */
+html[dir="ltr"] .single-team-box .content,
+html[dir="ltr"] .single-most-popular-news .popular-news-content {
+    text-align: left;
+}
+
+/* فرم جستجو توی نوبار */
+html[dir="ltr"] .search-box button {
+    right: auto;
+    left: 0;
+}
+html[dir="ltr"] .search-box input {
+    padding-right: 15px;
+    padding-left: 40px;
+}
+
+/* آیتم‌های others-options و top-header-others */
+html[dir="ltr"] .top-header-others,
+html[dir="ltr"] .others-options {
+    justify-content: flex-start;
+}
