@@ -89,9 +89,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processors.search_form',
-                'django.template.context_processors.i18n',
+                'django.template.context_processors.i18n', 
                 'core.context_processors.redirect_to',
-                'core.context_processors.language_alternates',
             ],
         },
     },
@@ -220,28 +219,23 @@ LOGGING = {
 }
 
 # ==============================================================================
-# امنیت پیشرفته (فقط در production — DEBUG=False)
+# امنیت پیشرفته (ضروری برای تولید)
 # ==============================================================================
-# In development (DEBUG=True) these must be off so runserver (HTTP) works.
-# When deploying, set DEBUG=False and the secure settings activate automatically.
+# 🔒 اجبار استفاده از HTTPS
 
-if not DEBUG:
-    # 🔒 Force HTTPS
-    SECURE_SSL_REDIRECT = True
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-    # 🍪 Secure cookies
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-
-    # 🛡️ Security headers
-    SECURE_HSTS_SECONDS = 31536000  # 1 year
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
-
-# Always useful (safe in development too)
+# 🍪 کوکی‌های امن
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_HTTPONLY = True
+
+# 🛡️ هدرهای امنیتی
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
+SECURE_HSTS_SECONDS = 31536000  # 1 سال
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
