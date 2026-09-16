@@ -51,7 +51,7 @@
     display: none;
     position: absolute;
     top: 100%;
-    right: 0;
+    {% if LANGUAGE_BIDI %}right: 0;{% else %}left: 0;{% endif %}
     background: #fff;
     border: 1px solid rgba(0,0,0,0.1);
     border-radius: 6px;
@@ -73,7 +73,7 @@
 }
 .lang-switcher .lang-menu button {
     width: 100%;
-    text-align: right;
+    text-align: {% if LANGUAGE_BIDI %}right{% else %}left{% endif %};
     background: none;
     border: none;
     padding: 8px 15px;
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="main-navbar">
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-light">
-                <a class="navbar-brand text-dark" href="{% url "core:home" %}">
+                <a class="navbar-brand text-dark" href="{% url "core:home" %}" >
                     <img src="{% static "img/logo.jpeg" %}" class="black-logo" alt="image">
                     <img src="{% static "img/logo.jpeg" %}" class="white-logo" alt="image">
                 </a>
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     <div class="others-options d-flex align-items-center">
                         <div class="option-item">
-                            <form method="get" action="{% url 'core:search_results' %}" class="search-box">
+                            <form class="search-box" method="get" action="{% url 'core:search' %}">
                                 {{ search_form.q }}
                                 <button type="submit"><i class='bx bx-search'></i></button>
                             </form>
@@ -242,8 +242,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="option-inner">
                     <div class="others-options d-flex align-items-center">
                         <div class="option-item">
-                            <form class="search-box">
-                                <input type="text" class="form-control" placeholder="{% trans 'جستجو..' %}">
+                            <form class="search-box" method="get" action="{% url 'core:search' %}">
+                                {{ search_form.q }}
                                 <button type="submit"><i class='bx bx-search'></i></button>
                             </form>
                         </div>
@@ -253,3 +253,4 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 </div>
+<!-- End Navbar Area -->

@@ -4,7 +4,14 @@
     <head>		
         {% include "./includes/_header.html" %}
 		<title>{% block title %}{% trans "خبرنامه ایران - ژاپن" %}{% endblock %}</title>
-        <link rel="icon" type="image/png" href="{% static "img/fa.ico" %}">
+        <link rel="icon" type="image/png" href="{% static 'img/fa.ico' %}">
+
+        {# SEO: canonical + hreflang from context processor #}
+        <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+        {% for alt in language_alternates %}
+            <link rel="alternate" hreflang="{{ alt.code }}" href="{{ alt.url }}">
+        {% endfor %}
+        <link rel="alternate" hreflang="x-default" href="{{ request.scheme }}://{{ request.get_host }}/fa/">
     </head>
 
     <body>
