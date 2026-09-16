@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     <div class="others-options d-flex align-items-center">
                         <div class="option-item">
-                            <form class="search-box" method="get" action="{% url 'core:search' %}">
+                            <form class="search-box" method="get" action="{% url 'core:search_results' %}">
                                 {{ search_form.q }}
                                 <button type="submit"><i class='bx bx-search'></i></button>
                             </form>
@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="option-inner">
                     <div class="others-options d-flex align-items-center">
                         <div class="option-item">
-                            <form class="search-box" method="get" action="{% url 'core:search' %}">
+                            <form class="search-box" method="get" action="{% url 'core:search_results' %}">
                                 {{ search_form.q }}
                                 <button type="submit"><i class='bx bx-search'></i></button>
                             </form>
