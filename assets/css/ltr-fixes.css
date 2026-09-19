@@ -9,19 +9,28 @@ html[dir="ltr"] body {
     direction: ltr;
 }
 
-/* breadcrumb توی page-title-content - جهت لیست و فلش‌ها */
+/* breadcrumb توی page-title-content - جهت لیست و جداکننده */
 html[dir="ltr"] .page-title-content ul {
-    padding-left: 0;
     text-align: left;
+    left: 0;
+    right: auto;
+    padding-right: 0;
+    padding-left: 0;
 }
 html[dir="ltr"] .page-title-content ul li {
-    display: inline-block;
-    margin-right: 5px;
+    margin-right: 15px;
     margin-left: 0;
 }
+html[dir="ltr"] .page-title-content ul li:first-child {
+    margin-right: 0;
+}
 html[dir="ltr"] .page-title-content ul li::before {
-    content: '/';
-    margin: 0 5px;
+    content: '';
+    right: -10px;
+    left: auto;
+}
+html[dir="ltr"] .page-title-content ul li:first-child::before {
+    display: none;
 }
 
 /* نوبار - فاصله‌ی آیتم‌ها */
@@ -37,6 +46,12 @@ html[dir="ltr"] .navbar-nav .nav-item {
 html[dir="ltr"] .bx {
     margin-left: 0;
     margin-right: 4px;
+}
+/* استثنا: آیکون‌هایی که با position:absolute توی مرکز والدشون جا می‌گیرن،
+   نباید margin بگیرن چون از مرکز خارج میشن */
+html[dir="ltr"] .search-box button i,
+html[dir="ltr"] .lang-switcher .lang-toggle i {
+    margin: 0;
 }
 
 /* دراپ‌داون‌های بوت‌استرپ (مثل سوییچر زبان و منوهای دیگه) */
