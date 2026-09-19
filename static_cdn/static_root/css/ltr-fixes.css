@@ -33,13 +33,18 @@ html[dir="ltr"] .page-title-content ul li:first-child::before {
     display: none;
 }
 
-/* نوبار - فاصله‌ی آیتم‌ها */
+/* نوبار - فاصله‌ی آیتم‌ها + جلوگیری از شکستن متن به خط بعد */
 html[dir="ltr"] .navbar-nav {
     padding-right: 0;
 }
 html[dir="ltr"] .navbar-nav .nav-item {
     margin-right: 0;
     margin-left: 15px;
+}
+html[dir="ltr"] .main-navbar .navbar .navbar-nav .nav-item a {
+    white-space: nowrap;
+    padding: 30px 8px;
+    font-size: 15px;
 }
 
 /* آیکون‌های Boxicons که فاصله‌شون فرض RTL داره */
