@@ -71,17 +71,6 @@ html[dir="ltr"] .single-most-popular-news .popular-news-content {
     text-align: left;
 }
 
-/* فرم جستجو توی نوبار */
-html[dir="ltr"] .search-box button {
-    right: auto;
-    left: 0;
-    right: 5px;
-}
-html[dir="ltr"] .search-box input {
-    padding-right: 15px;
-    padding-left: 40px;
-}
-
 /* آیتم‌های others-options و top-header-others */
 html[dir="ltr"] .top-header-others,
 html[dir="ltr"] .others-options {
