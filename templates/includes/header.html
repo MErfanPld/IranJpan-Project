@@ -111,6 +111,28 @@
     color: #df1c22;
     font-weight: 600;
 }
+
+/* حالت موبایل: مطمئن می‌شیم دراپ‌داون از صفحه بیرون نزنه و واضح جدا از
+   بقیه‌ی محتوا (لوگو/همبرگر) دیده بشه، صرف‌نظر از اینکه دکمه‌ی سوییچر
+   دقیقاً کجای نوار قرار گرفته */
+@media only screen and (max-width: 767px) {
+    .top-header-others {
+        flex-wrap: wrap;
+        row-gap: 6px;
+    }
+    .top-header-others li {
+        font-size: 13px;
+    }
+    .lang-switcher .lang-menu {
+        left: 0;
+        right: auto;
+        min-width: 110px;
+        max-width: calc(100vw - 30px);
+        z-index: 9999;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(0, 0, 0, 0.15);
+    }
+}
 </style>
 
 <li class="lang-switcher-item">
